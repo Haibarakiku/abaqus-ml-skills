@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.vscode/
+.idea/
+*.egg-info/
+
+# typical abaqus working files (in case anyone runs the references in this repo)
+*.odb
+*.lck
+*.com
+*.dat
+*.msg
+*.sta
+*.prt
+*.sim
+datasets/
+aggregated/
