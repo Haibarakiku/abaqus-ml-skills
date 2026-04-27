@@ -1,6 +1,11 @@
 ---
 name: abaqus-lhs-batch-dataset
 description: Generate an Abaqus FEA training dataset for surrogate / ML models. Latin Hypercube Sampling (or sparse-pattern sampling) over a parameterized design vector, one case folder per sample, batch-submit Abaqus jobs via subprocess, recover from crashes, and write a unified dataset index. Use when the user wants to "build a training set for a surrogate model", "sweep design parameters in Abaqus", "run N FEA simulations", or "sample a design space".
+difficulty: intermediate
+category: engineering-simulation
+tags: [abaqus, fea, finite-element, simulation, machine-learning, surrogate-model, latin-hypercube, dataset-generation]
+platforms: [claude, openclaw, opencode, cursor, codex, cline]
+quality: community
 allowed-tools:
   - Read
   - Write
