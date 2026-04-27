@@ -1,8 +1,8 @@
 ---
 name: abaqus-surrogate-fea-validation
-description: Closed-loop inverse-design validation. Given a target deformation field, solve the inverse problem on a trained surrogate (Ridge / linear), then run an Abaqus FEA verification and compare surrogate-predicted vs. true displacement field. Reports MSE / MAE / max-abs-error / NRMSE side-by-side, plus saturated-channel count, so you can quantify the surrogate-FEA gap. Use when the user wants to evaluate "is my surrogate good enough for inverse design?", "how big is the surrogate-FEA gap on this target?", "did the optimizer find a real solution or just a surrogate hallucination?"
+description: Validate surrogate-driven Abaqus inverse designs. Solve a target deformation with a trained surrogate, run Abaqus FEA verification, and compare predicted versus true displacement metrics including MSE, MAE, NRMSE, max error, and saturated-channel count.
 difficulty: intermediate
-category: engineering-simulation
+category: data
 tags: [abaqus, fea, finite-element, simulation, surrogate-model, inverse-design, validation, ridge, l-bfgs-b]
 platforms: [claude, openclaw, opencode, cursor, codex, cline]
 quality: community

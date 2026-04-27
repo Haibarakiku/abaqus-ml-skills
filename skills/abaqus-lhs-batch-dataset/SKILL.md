@@ -1,8 +1,8 @@
 ---
 name: abaqus-lhs-batch-dataset
-description: Generate an Abaqus FEA training dataset for surrogate / ML models. Latin Hypercube Sampling (or sparse-pattern sampling) over a parameterized design vector, one case folder per sample, batch-submit Abaqus jobs via subprocess, recover from crashes, and write a unified dataset index. Use when the user wants to "build a training set for a surrogate model", "sweep design parameters in Abaqus", "run N FEA simulations", or "sample a design space".
+description: Generate Abaqus FEA training datasets for surrogate or ML models. Use Latin Hypercube or sparse-pattern sampling over a design vector, create one case folder per sample, submit Abaqus jobs with crash recovery, and write a unified dataset index.
 difficulty: intermediate
-category: engineering-simulation
+category: data
 tags: [abaqus, fea, finite-element, simulation, machine-learning, surrogate-model, latin-hypercube, dataset-generation]
 platforms: [claude, openclaw, opencode, cursor, codex, cline]
 quality: community
@@ -118,12 +118,11 @@ For each sample `i = 1..N`:
    ...
    ```
    For static loads, the two-point amplitude is constant. For ramp loading, set `(0, 0), (t_ramp, val), (1, val)`.
-4. Run Abaqus with timeout via `subprocess.run`:
+4. Run Abaqus with timeout via `subprocess.run` using argv form:
    ```python
    subprocess.run(
-       'abaqus cae noGUI="<solver_script>"',
+       ["abaqus", "cae", f"noGUI={solver_script}"],
        cwd=str(case_dir),
-       shell=True,
        text=True,
        capture_output=True,
        timeout=timeout_s,  # default 3600

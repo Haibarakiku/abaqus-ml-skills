@@ -216,13 +216,12 @@ def cleanup_locks(case_dir: Path) -> None:
 
 def run_one_case(case_dir: Path, solver_script: Path, timeout_s: float) -> Tuple[int, float, str]:
     cleanup_locks(case_dir)
-    cmd = f'abaqus cae noGUI="{solver_script}"'
+    cmd = ["abaqus", "cae", f"noGUI={solver_script}"]
     t0 = time.perf_counter()
     try:
         proc = subprocess.run(
             cmd,
             cwd=str(case_dir),
-            shell=True,
             text=True,
             capture_output=True,
             timeout=timeout_s,

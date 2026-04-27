@@ -1,8 +1,8 @@
 ---
 name: abaqus-odb-to-grid-csv
-description: Convert per-case Abaqus FEA outputs into ML-ready (X, Y) wide-table CSVs. Pivots irregular FEA mesh node displacements onto a regular N×N grid via direct binning (structured mesh) or bilinear resampling, picks the final frame as the deformation target, and aggregates across many cases into X_amplitude.csv (design vectors) + Y_grid_uz.csv (flattened grid displacement). Use when the user has a folder of completed FEA cases and wants to train a Ridge / MLP / Gaussian Process surrogate on the (input → displacement field) mapping.
+description: Convert Abaqus FEA case outputs into ML-ready X/Y wide-table CSVs. Pivot node displacements onto a regular NxN grid by direct binning or bilinear resampling, select final-frame deformation, and aggregate X_amplitude.csv plus Y_grid_uz.csv for surrogate training.
 difficulty: intermediate
-category: engineering-simulation
+category: data
 tags: [abaqus, fea, finite-element, simulation, machine-learning, data-pipeline, mesh-resampling]
 platforms: [claude, openclaw, opencode, cursor, codex, cline]
 quality: community
