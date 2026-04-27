@@ -18,6 +18,12 @@ Convert per-case Abaqus FEA outputs into ML-ready (X, Y) wide-table CSVs. Pivots
 
 **Activates on**: a folder of completed FEA cases that needs to become a training matrix for Ridge / MLP / Gaussian Process / PyTorch.
 
+### [`abaqus-surrogate-fea-validation`](skills/abaqus-surrogate-fea-validation/)
+
+Closed-loop inverse-design validation. Given a target deformation field, solve the inverse problem on a trained surrogate (Ridge / linear), then run an Abaqus FEA verification and compare surrogate-predicted vs. true displacement field. Supports 4 inverse solvers (PGD / L-BFGS-B / multi-start L-BFGS-B / Nelder-Mead) and reports MSE / MAE / NRMSE / saturated-channel count side-by-side, so you can quantify the surrogate-FEA gap.
+
+**Activates on**: "is my surrogate good enough for inverse design?", "how big is the surrogate-FEA gap?", "did the optimizer find a real solution or a surrogate hallucination?"
+
 ## Installation
 
 ### Per-project (recommended)
@@ -75,11 +81,31 @@ cp -r abaqus-ml-skills/skills/abaqus-* ~/.claude/skills/
                 │   Y_grid_uz.csv            │  <- ML model target
                 │   sample_meta.csv          │
                 │   aggregate_summary.csv    │
-                └────────────────────────────┘
+                └────────────┬───────────────┘
                              │
+                             │  scikit-learn / PyTorch
+                             │   Ridge / MLP / GP fit
                              ▼
-                  scikit-learn / PyTorch
-                  Ridge / MLP / GP / etc.
+                ┌────────────────────────────┐
+                │  trained surrogate         │
+                │   W (or model.npz)         │
+                └────────────┬───────────────┘
+                             │
+                             │  abaqus-surrogate-fea-validation
+                             │   - solve inverse on surrogate (PGD / L-BFGS-B)
+                             │   - run Abaqus on x_sol
+                             │   - extract true uz field
+                             │   - side-by-side metrics
+                             ▼
+                ┌────────────────────────────┐
+                │  validation_runs/          │
+                │   target_dome/             │
+                │     predicted_surrogate    │
+                │     predicted_true         │
+                │     summary.csv            │
+                │   surrogate_inverse_       │
+                │     summary.csv            │  <- publication table
+                └────────────────────────────┘
 ```
 
 ## Requirements
